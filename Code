@@ -1,0 +1,118 @@
+#import Cash_register
+
+class Retail_item:
+
+    def __init__(self,item_number,item_description, units_in_inventory, price):
+        self.item_number = item_number
+        self.item_description = item_description
+        self.units_in_inventory = units_in_inventory
+        self.price = price
+
+    def get_item_number(self):
+        return self.item_number
+
+    def get_item_description(self):
+        return self.item_description
+
+    def get_inventory(self):
+        return self.units_in_inventory
+
+    def get_price(self):
+        return self.price
+
+    def __str__(self):
+        return "Item Number: " + str(self.get_item_number())+\
+               "| Item Description: " + str(self.get_item_description())+\
+               "| Number of Units: " + str(self.get_inventory())+\
+               "| Price: " + str(self.get_price())
+    #Could call str on each object in menu when called with corresponding number
+
+
+class Cash_register:
+
+    def __init__(self):
+        self.shopping_cart = []
+
+    def purchase_item(self, retail_item): # retail object argument
+        self.shopping_cart.append(retail_item)
+
+    def get_total(self):
+        total = 0
+        for item in self.shopping_cart:
+            total += item.get_price()
+        return total
+
+    def show_items(self):
+        print("Shopping Cart: ",end = '')#Make show_items append all attributes to list like nested list
+        cart = []
+        for item in self.shopping_cart:
+            cart.append([item.get_item_description(),item.get_price()])
+                                                #SHows address of object not actual name
+        return cart
+
+    def clear_cart(self):
+        self.shopping_cart.clear()
+
+    # def __str__(self):
+    #     return str(self.shopping_cart) #needs to be string
+
+
+
+
+
+def main():
+    pass
+    #pants = Retail_item("1000","Pants",10,19.99)
+    #shirt = Retail_item("3000","Shirt",15,12.50)
+    #jeans = Retail_item("2000","Jeans",2,25.95)
+
+    #cart = Cash_register()
+    #cart.purchase_item(pants)
+    #cart.purchase_item(jeans)
+    #cart.purchase_item(shirt)
+    #print("Shopping cart total: ",format(cart.get_total(), '.2f'), sep="$")
+    #print(cart.show_items())
+pants = Retail_item("1000","Pants",10,19.99)
+shirt = Retail_item("3000","Shirt",15,12.50)
+jeans = Retail_item("2000","Jeans",2,25.95)
+
+cart = Cash_register()
+def menu():
+    ask = 'y'
+    while ask == 'y':
+        selection_list()
+        choice = int(input("Enter Number corresponding to choice: "))
+        #quantity = input("Enter number of units you'd purchase: ")
+        selected_item(choice)
+        ask = input("Make another selection? 'y' = yes, [ENTER] = no: ")
+
+def selection_list():
+    print("Store Items:\n"
+          "(1.) Pants\n"          #Implement try except
+          "(2.) Jeans\n"
+          "(3.) Shirt\n"
+          "(4.) Clear Cash Register\n"
+          "(5.) Show Inventory\n"
+          "(6.) Check Out")
+
+
+def selected_item(choice):
+
+    if choice == 1:
+        cart.purchase_item(pants)
+    elif choice == 2:
+        cart.purchase_item(jeans)
+    elif choice == 3:
+        cart.purchase_item(shirt)
+    elif choice == 4:
+        cart.clear_cart()
+    elif choice == 5:
+        print(cart.show_items())
+    elif choice == 6:
+        print("Checking out....")
+    else:
+        print("Checking out....")
+#main()
+#menu()
+#selection_list()
+menu()
